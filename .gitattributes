@@ -1,2 +1,74 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+using System;
+
+class Calculator
+{
+    static void Main()
+    {
+        Console.WriteLine("Simple Calculator");
+
+        while (true)
+        {
+            Console.WriteLine("Enter the first number:");
+            double num1 = GetNumberFromUser();
+
+            Console.WriteLine("Enter the operator (+, -, *, /):");
+            char op = GetOperatorFromUser();
+
+            Console.WriteLine("Enter the second number:");
+            double num2 = GetNumberFromUser();
+
+            double result = PerformOperation(num1, num2, op);
+
+            Console.WriteLine("Result: " + result);
+           
+        }
+    }
+
+    static double GetNumberFromUser()
+    {
+        double number;
+        while (!double.TryParse(Console.ReadLine(), out number))
+        {
+            Console.WriteLine("Invalid input. Please enter a valid number:");
+        }
+        return number;
+    }
+
+    static char GetOperatorFromUser()
+    {
+        char op;
+        while (!char.TryParse(Console.ReadLine(), out op) || !IsSupportedOperator(op))
+        {
+            Console.WriteLine("Invalid input. Please enter a valid operator (+, -, *, /):");
+        }
+        return op;
+    }
+
+    static bool IsSupportedOperator(char op)
+    {
+        return op == '+' || op == '-' || op == '*' || op == '/';
+    }
+
+    static double PerformOperation(double num1, double num2, char op)
+    {
+        double result = 0.0;
+
+        switch (op)
+        {
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                result = num1 / num2;
+                break;
+        }
+
+        return result;
+    }
+}
